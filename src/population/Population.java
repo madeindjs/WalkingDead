@@ -1,5 +1,6 @@
 package population;
 
+import java.util.Random;
 import java.util.Vector;
 
 public class Population {
@@ -21,6 +22,7 @@ public class Population {
      */
     public void addYear() {
         Vector<Human> humansDied = new Vector();
+        Vector<Human> babies = new Vector();
 
         for (Human human : humans) {
             human.addYear();
@@ -32,6 +34,21 @@ public class Population {
         for (Human human : humansDied) {
             humans.remove(human);
         }
+
+        Random rand = new Random();
+        int count = humans.size();
+
+        // each human try to have sex ... if he can
+        for (Human human : humans) {
+            int index = rand.nextInt(count);
+            try {
+                Human baby = human.haveSex(humans.get(index));
+                babies.add(baby);
+            } catch (Exception e) {
+            }
+        }
+        humans.addAll(babies);
+
         year++;
     }
 
