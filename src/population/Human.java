@@ -12,6 +12,8 @@ public class Human {
     private final int maxAge;
     private final Sex sex;
 
+    public int life = 100;
+
     private Human mother;
     private Human father;
 
@@ -33,7 +35,6 @@ public class Human {
         this();
         setFather(_father);
         setMother(_mother);
-
     }
 
     public void setMother(Human _mother) {
@@ -70,7 +71,7 @@ public class Human {
     }
 
     public boolean isAlive() {
-        return age < maxAge;
+        return age < maxAge && life > 0;
     }
 
     public boolean isMajor() {

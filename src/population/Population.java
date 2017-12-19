@@ -6,6 +6,7 @@ import java.util.Vector;
 public class Population {
 
     private Vector<Human> humans = new Vector();
+    private Vector<Zombie> zombies = new Vector();
     private int year = 0;
 
     /**
@@ -18,25 +19,28 @@ public class Population {
     }
 
     /**
+     * - zombies fight again humans - remove died zombies & humans - humans try
      * Add one year to eac humans & check you remains alive
      */
     public void addYear() {
-        Vector<Human> humansDied = new Vector();
+        Random rand = new Random();
+
         Vector<Human> babies = new Vector();
 
+        // Add one year to each human
         for (Human human : humans) {
             human.addYear();
-            if (!human.isAlive()) {
-                humansDied.add(human);
-            }
         }
 
-        for (Human human : humansDied) {
-            humans.remove(human);
-        }
-
-        Random rand = new Random();
         int count = humans.size();
+
+        // zombies try to kill humans
+        for (Zombie zombie : zombies) {
+            int index = rand.nextInt(count);
+            zombie.fight(humans.get(index));
+        }
+
+        removeDiedPeople();
 
         // each human try to have sex ... if he can
         for (Human human : humans) {
@@ -53,7 +57,30 @@ public class Population {
     }
 
     public String toString() {
-        return String.format("[%s] Population: %s", year, humans.size());
+        return String.format(
+                "[%s] Population: %s humans & %s zombies",
+                year,
+                humans.size(),
+                zombies.size()
+        );
+    }
+
+    protected void removeDiedPeople() {
+        Vector<Human> humansDied = new Vector();
+
+        zombies.removeIf((z) -> !z.isAlive());
+
+        for (Human human : humans) {
+            if (!human.isAlive()) {
+                humansDied.add(human);
+            }
+        }
+
+        for (Human human : humansDied) {
+            humans.remove(human);
+            zombies.add(new Zombie());
+        }
+
     }
 
     /**
