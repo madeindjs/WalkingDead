@@ -5,31 +5,33 @@
  */
 package population;
 
-public class Zombie {
+public class Zombie implements Fighter {
 
-    private int strenght = 30;
-    private int life = 50;
+    public int strenght = 30;
+    public int life = 20;
 
     public Zombie() {
         // todo generate random skills
     }
 
+    @Override
     public void fight(Human human) {
-        if (human.isMajor()) {
-
-            human.life -= strenght;
-            // human fight again
-            if (human.isAlive()) {
-                life -= human.life;
-            }
+        if (human.isMajor() && isAlive()) {
+            human.life = human.life - strenght;
+            human.fight(this);
         } else {
             human.life = 0;
         }
-
     }
 
+    @Override
     public boolean isAlive() {
         return life > 0;
+    }
+
+    @Override
+    public void fight(Zombie zombie) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

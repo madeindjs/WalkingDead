@@ -6,7 +6,7 @@ import java.util.Random;
  *
  * @author arousseau
  */
-public class Human {
+public class Human implements Fighter {
 
     private int age;
     private final int maxAge;
@@ -31,10 +31,13 @@ public class Human {
         sex = rand.nextBoolean() ? Sex.Male : Sex.Female;
     }
 
-    public Human(Human _mother, Human _father) {
+    public Human(int _age) {
         this();
-        setFather(_father);
-        setMother(_mother);
+        age = _age;
+    }
+
+    public void setAge(int _age) {
+        age = _age;
     }
 
     public void setMother(Human _mother) {
@@ -56,11 +59,7 @@ public class Human {
 
         Random rand = new Random();
         if (rand.nextInt(CHANCES_TO_HAVE_CHILD) == 1) {
-            if (this.sex == Sex.Male) {
-                return new Human(this, otherHuman);
-            } else {
-                return new Human(otherHuman, this);
-            }
+            return new Human();
         }
 
         throw new Exception("Do it again...");
@@ -70,16 +69,31 @@ public class Human {
         age++;
     }
 
-    public boolean isAlive() {
-        return age < maxAge && life > 0;
-    }
-
     public boolean isMajor() {
         return age > AGE_MAJORITY;
     }
 
     public boolean canHaveSex() {
         return isMajor() && isAlive();
+    }
+
+    @Override
+    public boolean isAlive() {
+        return age < maxAge && life > 0;
+    }
+
+    @Override
+    public void fight(Human human) {
+        throw new UnsupportedOperationException("Human can't fight against human");
+    }
+
+    @Override
+    public void fight(Zombie zombie) {
+        if (isMajor() && isAlive()) {
+            zombie.life = 0;
+        } else {
+            this.life = 0;
+        }
     }
 
 }

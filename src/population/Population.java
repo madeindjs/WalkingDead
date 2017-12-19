@@ -5,41 +5,49 @@ import java.util.Vector;
 
 public class Population {
 
-    private Vector<Human> humans = new Vector();
-    private Vector<Zombie> zombies = new Vector();
+    private final Vector<Human> humans = new Vector();
+    private final Vector<Zombie> zombies = new Vector();
     private int year = 0;
+
+    static final int NUMBER_START = 100;
 
     /**
      * Create a population with 10 humans
      */
     public Population() {
-        for (int i = 0; i < 10; i++) {
-            humans.add(new Human());
+        for (int i = 0; i < NUMBER_START; i++) {
+            humans.add(new Human(Human.AGE_MAJORITY));
         }
     }
 
     /**
-     * - zombies fight again humans - remove died zombies & humans - humans try
-     * Add one year to eac humans & check you remains alive
+     * 1. add year to each humans
+     *
+     * 2. zombies fight again humans
+     *
+     * 3. remove died zombies & humans
+     *
+     * 4. humans have sex
      */
     public void addYear() {
         Random rand = new Random();
 
         Vector<Human> babies = new Vector();
 
-        // Add one year to each human
+        // 1. add year to each humans
         for (Human human : humans) {
             human.addYear();
         }
 
         int count = humans.size();
 
-        // zombies try to kill humans
+        // 2. zombies fight again humans
         for (Zombie zombie : zombies) {
             int index = rand.nextInt(count);
             zombie.fight(humans.get(index));
         }
 
+        // 3. remove died zombies & humans
         removeDiedPeople();
 
         // each human try to have sex ... if he can
@@ -56,6 +64,7 @@ public class Population {
         year++;
     }
 
+    @Override
     public String toString() {
         return String.format(
                 "[%s] Population: %s humans & %s zombies",
