@@ -18,7 +18,7 @@ public class Human implements Fighter {
     private Human father;
 
     static final int AGE_MAJORITY = 18;
-    static final int CHANCES_TO_HAVE_CHILD = 12;
+    static final int CHANCES_TO_HAVE_CHILD = 5;
 
     /**
      * Create a human with a random sex & random max age

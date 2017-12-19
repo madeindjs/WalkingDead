@@ -20,6 +20,14 @@ public class Population {
         }
     }
 
+    public int countHumans() {
+        return humans.size();
+    }
+
+    public int countZombies() {
+        return zombies.size();
+    }
+
     /**
      * 1. add year to each humans
      *
@@ -39,7 +47,7 @@ public class Population {
             human.addYear();
         }
 
-        int count = humans.size();
+        int count = countHumans();
 
         // 2. zombies fight again humans
         for (Zombie zombie : zombies) {
@@ -90,17 +98,5 @@ public class Population {
             zombies.add(new Zombie());
         }
 
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Population pop = new Population();
-
-        while (pop.humans.size() > 0) {
-            pop.addYear();
-            System.out.println(pop);
-        }
     }
 }
