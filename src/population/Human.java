@@ -19,6 +19,7 @@ public class Human extends Point implements Fighter, Walker {
 
     static final int AGE_MAJORITY = 18;
     static final int CHANCES_TO_HAVE_CHILD = 5;
+    static final int RAPIDITY = 1;
 
     /**
      * Create a human with a random sex & random max age
@@ -100,7 +101,14 @@ public class Human extends Point implements Fighter, Walker {
 
     @Override
     public void move() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Random rand = new Random();
+        int direction = rand.nextBoolean() ? 1 : -1;
+
+        int _x = x + (RAPIDITY * direction);
+        int _y = y + (RAPIDITY * direction);
+
+        setCoordinates(_x, _y);
+        addYear();
     }
 
 }

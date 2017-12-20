@@ -86,7 +86,7 @@ public class Population {
         );
     }
 
-    protected void removeDiedPeople() {
+    public void removeDiedPeople() {
         Vector<Human> humansDied = new Vector();
 
         zombies.removeIf((z) -> !z.isAlive());

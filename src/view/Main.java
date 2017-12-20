@@ -5,6 +5,7 @@
  */
 package view;
 
+import population.Human;
 import population.Population;
 
 /**
@@ -16,10 +17,21 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Frame frame = new Frame();
         Population pop = new Population();
         Land land = new Land(pop);
         frame.setLand(land);
+
+        while (pop.countHumans() > 0) {
+            for (Human human : pop.getHumans()) {
+                human.move();
+            }
+            frame.land.repaint();
+
+            pop.removeDiedPeople();
+
+            Thread.sleep(100);
+        }
     }
 }

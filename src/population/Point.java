@@ -19,4 +19,15 @@ public class Point {
         y = rand.nextInt(yMax);
     }
 
+    protected void setCoordinates(int _x, int _y) {
+        if (_x > 0 && _x < xMax) {
+            x = _x;
+        }
+
+        if (_y > 0 && _y < yMax) {
+            y = _y;
+        }
+
+    }
+
 }
