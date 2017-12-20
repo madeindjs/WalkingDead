@@ -13,18 +13,19 @@ import javax.swing.JFrame;
  */
 public class Frame extends JFrame {
 
-    private Graph graph = new Graph();
+    public Land land;
 
     public Frame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().add(graph);
+
         setSize(400, 400);
         setLocation(200, 200);
         setVisible(true);
     }
 
-    public void addCount(int humans, int zombies) {
-        graph.addCount(humans, zombies);
+    public void setLand(Land _land) {
+        land = _land;
+        getContentPane().add(land);
     }
 
 }

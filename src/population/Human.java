@@ -6,7 +6,7 @@ import java.util.Random;
  *
  * @author arousseau
  */
-public class Human implements Fighter {
+public class Human extends Point implements Fighter, Walker {
 
     private int age;
     private final int maxAge;
@@ -29,6 +29,8 @@ public class Human implements Fighter {
         maxAge = rand.nextInt(120);
         age = 0;
         sex = rand.nextBoolean() ? Sex.Male : Sex.Female;
+
+        setRandomPosition();
     }
 
     public Human(int _age) {
@@ -94,6 +96,11 @@ public class Human implements Fighter {
         } else {
             this.life = 0;
         }
+    }
+
+    @Override
+    public void move() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

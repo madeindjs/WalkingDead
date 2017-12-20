@@ -18,13 +18,8 @@ public class Main {
      */
     public static void main(String[] args) {
         Frame frame = new Frame();
-
         Population pop = new Population();
-
-        while (pop.countHumans() > 0) {
-            pop.addYear();
-            frame.addCount(pop.countHumans(), pop.countZombies());
-            System.out.println(pop);
-        }
+        Land land = new Land(pop);
+        frame.setLand(land);
     }
 }

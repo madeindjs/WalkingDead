@@ -5,7 +5,7 @@
  */
 package population;
 
-public class Zombie implements Fighter {
+public class Zombie extends Point implements Fighter, Walker {
 
     public int strenght = 30;
     public int life = 20;
@@ -31,6 +31,11 @@ public class Zombie implements Fighter {
 
     @Override
     public void fight(Zombie zombie) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void move() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

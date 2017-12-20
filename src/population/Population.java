@@ -5,8 +5,8 @@ import java.util.Vector;
 
 public class Population {
 
-    private final Vector<Human> humans = new Vector();
-    private final Vector<Zombie> zombies = new Vector();
+    private Vector<Human> humans = new Vector();
+    private Vector<Zombie> zombies = new Vector();
     private int year = 0;
 
     static final int NUMBER_START = 100;
@@ -26,6 +26,10 @@ public class Population {
 
     public int countZombies() {
         return zombies.size();
+    }
+
+    public Vector<Human> getHumans() {
+        return humans;
     }
 
     /**
