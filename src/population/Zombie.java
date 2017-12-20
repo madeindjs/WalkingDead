@@ -5,13 +5,18 @@
  */
 package population;
 
+import java.util.Random;
+
 public class Zombie extends Point implements Fighter, Walker {
 
     public int strenght = 30;
     public int life = 20;
 
-    public Zombie() {
-        // todo generate random skills
+    static final int RAPIDITY = 1;
+
+    public Zombie(Human human) {
+        x = human.x;
+        y = human.y;
     }
 
     @Override
@@ -36,7 +41,13 @@ public class Zombie extends Point implements Fighter, Walker {
 
     @Override
     public void move() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Random rand = new Random();
+        int direction = rand.nextBoolean() ? 1 : -1;
+
+        int _x = x + (RAPIDITY * direction);
+        int _y = y + (RAPIDITY * direction);
+
+        setCoordinates(_x, _y);
     }
 
 }

@@ -32,6 +32,10 @@ public class Population {
         return humans;
     }
 
+    public Vector<Zombie> getZombie() {
+        return zombies;
+    }
+
     /**
      * 1. add year to each humans
      *
@@ -99,7 +103,7 @@ public class Population {
 
         for (Human human : humansDied) {
             humans.remove(human);
-            zombies.add(new Zombie());
+            zombies.add(new Zombie(human));
         }
 
     }

@@ -7,6 +7,7 @@ package view;
 
 import population.Human;
 import population.Population;
+import population.Zombie;
 
 /**
  *
@@ -26,6 +27,9 @@ public class Main {
         while (pop.countHumans() > 0) {
             for (Human human : pop.getHumans()) {
                 human.move();
+            }
+            for (Zombie zombie : pop.getZombie()) {
+                zombie.move();
             }
             frame.land.repaint();
 

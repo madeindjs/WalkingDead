@@ -19,7 +19,7 @@ public class Human extends Point implements Fighter, Walker {
 
     static final int AGE_MAJORITY = 18;
     static final int CHANCES_TO_HAVE_CHILD = 5;
-    static final int RAPIDITY = 1;
+    static final int RAPIDITY = 2;
 
     /**
      * Create a human with a random sex & random max age

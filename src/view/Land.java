@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 import population.Human;
 import population.Population;
+import population.Zombie;
 
 public class Land extends JPanel {
 
@@ -27,10 +28,15 @@ public class Land extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
+        // draw humans
         g2.setPaint(humanColor);
-
         for (Human human : population.getHumans()) {
             g2.fillOval(human.x - 2, human.y - 2, 4, 4);
+        }
+        // draw zombies
+        g2.setPaint(zombieColor);
+        for (Zombie zombie : population.getZombie()) {
+            g2.fillOval(zombie.x - 2, zombie.y - 2, 4, 4);
         }
     }
 }
