@@ -32,8 +32,8 @@ public class Main {
                 zombie.move();
             }
             frame.land.repaint();
-
             pop.removeDiedPeople();
+            pop.addYear();
 
             Thread.sleep(100);
         }

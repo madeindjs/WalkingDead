@@ -40,7 +40,8 @@ public class Land extends JPanel {
         }
 
         g2.setPaint(Color.black);
-        g2.drawString(String.format("Number of humans: %s", Human.getInstances().size()), 0, 10);
-        g2.drawString(String.format("Number of zombies: %s", Zombie.getInstances().size()), 0, 20);
+        g2.drawString(String.format("Year: %s", population.getYear()), 0, 10);
+        g2.drawString(String.format("Number of humans: %s", Human.getInstances().size()), 0, 20);
+        g2.drawString(String.format("Number of zombies: %s", Zombie.getInstances().size()), 0, 30);
     }
 }
