@@ -93,8 +93,7 @@ public class Human extends Entity implements Fighter {
 
     @Override
     public boolean isAlive() {
-        return true;
-        // return age < maxAge && life > 0;
+        return age < maxAge && life > 0;
     }
 
     @Override

@@ -5,9 +5,7 @@
  */
 package view;
 
-import population.Human;
 import population.Population;
-import population.Zombie;
 
 /**
  *
@@ -25,15 +23,10 @@ public class Main {
         frame.setLand(land);
 
         while (pop.countHumans() > 0) {
-            for (Human human : Human.getInstances()) {
-                human.move();
-            }
-            for (Zombie zombie : Zombie.getInstances()) {
-                zombie.move();
-            }
-            frame.land.repaint();
-            pop.removeDiedPeople();
+
             pop.addYear();
+            pop.removeDiedPeople();
+            frame.land.repaint();
 
             Thread.sleep(200);
         }

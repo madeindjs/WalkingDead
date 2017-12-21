@@ -53,6 +53,7 @@ public abstract class Entity implements Walker, Living {
     /**
      * Move completly randomnely on the 2D plan
      */
+    @Override
     public void move() {
         Random rand = new Random();
         int directionX = rand.nextBoolean() ? 1 : -1;

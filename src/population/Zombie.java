@@ -47,6 +47,7 @@ public class Zombie extends Entity implements Fighter, Walker, Living {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public void die() {
         instances.remove(this);
     }

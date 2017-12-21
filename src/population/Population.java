@@ -34,7 +34,17 @@ public class Population {
      * 4. humans have sex
      */
     public void addYear() {
+        // move humans
+        for (Human human : Human.getInstances()) {
+            human.move();
+        }
         /*
+        // move zombies
+        for (Zombie zombie : Zombie.getInstances()) {
+            zombie.move();
+        }
+         */
+ /*
         Random rand = new Random();
 
         Vector<Human> babies = new Vector();
