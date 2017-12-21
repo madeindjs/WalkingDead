@@ -7,7 +7,7 @@ import java.util.Vector;
  *
  * @author arousseau
  */
-public class Human extends Point implements Fighter, Walker {
+public class Human extends Entity implements Fighter {
 
     /**
      * Represent all humans
@@ -98,21 +98,15 @@ public class Human extends Point implements Fighter, Walker {
     @Override
     public void fight(Zombie zombie) {
         if (isMajor() && isAlive()) {
-            zombie.life = 0;
+            zombie.die();
         } else {
-            this.life = 0;
+            this.die();
         }
     }
 
     @Override
     public void move() {
-        Random rand = new Random();
-        int direction = rand.nextBoolean() ? 1 : -1;
-
-        int _x = x + (RAPIDITY * direction);
-        int _y = y + (RAPIDITY * direction);
-
-        setCoordinates(_x, _y);
+        super.move();
         addYear();
     }
 
@@ -121,9 +115,10 @@ public class Human extends Point implements Fighter, Walker {
      *
      * @todo try to free memory
      */
+    @Override
     public void die() {
         instances.remove(this);
-        // @todo create zombie here
+        new Zombie(this);
     }
 
 }

@@ -28,7 +28,7 @@ public class Main {
             for (Human human : Human.getInstances()) {
                 human.move();
             }
-            for (Zombie zombie : pop.getZombie()) {
+            for (Zombie zombie : Zombie.getInstances()) {
                 zombie.move();
             }
             frame.land.repaint();

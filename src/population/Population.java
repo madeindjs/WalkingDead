@@ -5,9 +5,7 @@ import java.util.Vector;
 
 public class Population {
 
-    private Vector<Zombie> zombies = new Vector();
     private int year = 0;
-
     static final int NUMBER_START = 100;
 
     /**
@@ -21,14 +19,6 @@ public class Population {
 
     public int countHumans() {
         return Human.getInstances().size();
-    }
-
-    public int countZombies() {
-        return zombies.size();
-    }
-
-    public Vector<Zombie> getZombie() {
-        return zombies;
     }
 
     /**
@@ -53,7 +43,7 @@ public class Population {
         int count = countHumans();
 
         // 2. zombies fight again humans
-        for (Zombie zombie : zombies) {
+        for (Zombie zombie : Zombie.getInstances()) {
             int index = rand.nextInt(count);
             zombie.fight(Human.getInstance(index));
         }
@@ -80,25 +70,30 @@ public class Population {
                 "[%s] Population: %s humans & %s zombies",
                 year,
                 Human.getInstances().size(),
-                zombies.size()
+                Zombie.getInstances().size()
         );
     }
 
+    /**
+     * Check all instances of humans & zombies & remove died instances
+     */
     public void removeDiedPeople() {
+
         Vector<Human> humansDied = new Vector();
-
-        zombies.removeIf((z) -> !z.isAlive());
-
         for (Human human : Human.getInstances()) {
             if (!human.isAlive()) {
                 humansDied.add(human);
             }
         }
+        humansDied.forEach((e) -> e.die());
 
-        for (Human human : humansDied) {
-            human.die();
-            zombies.add(new Zombie(human));
+        Vector<Zombie> zombieDied = new Vector();
+        for (Zombie zombie : Zombie.getInstances()) {
+            if (!zombie.isAlive()) {
+                zombieDied.add(zombie);
+            }
         }
+        zombieDied.forEach((e) -> e.die());
 
     }
 }

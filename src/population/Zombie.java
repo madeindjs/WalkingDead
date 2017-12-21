@@ -5,33 +5,41 @@
  */
 package population;
 
-import java.util.Random;
+import java.util.Vector;
 
-public class Zombie extends Point implements Fighter, Walker {
+public class Zombie extends Entity implements Fighter, Walker, Living {
 
     public int strenght = 30;
     public int life = 20;
 
-    static final int RAPIDITY = 1;
+    private static Vector<Zombie> instances = new Vector();
+
+    public static Vector<Zombie> getInstances() {
+        return instances;
+    }
 
     public Zombie(Human human) {
         x = human.x;
         y = human.y;
+        instances.add(this);
     }
 
     @Override
     public void fight(Human human) {
         if (human.isMajor() && isAlive()) {
             human.life = human.life - strenght;
-            human.fight(this);
+
+            if (human.isAlive()) {
+                human.fight(this);
+            }
         } else {
-            human.life = 0;
+            human.die();
         }
     }
 
     @Override
     public boolean isAlive() {
-        return life > 0;
+        return true;
     }
 
     @Override
@@ -39,15 +47,8 @@ public class Zombie extends Point implements Fighter, Walker {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void move() {
-        Random rand = new Random();
-        int direction = rand.nextBoolean() ? 1 : -1;
-
-        int _x = x + (RAPIDITY * direction);
-        int _y = y + (RAPIDITY * direction);
-
-        setCoordinates(_x, _y);
+    public void die() {
+        instances.remove(this);
     }
 
 }

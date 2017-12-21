@@ -35,8 +35,12 @@ public class Land extends JPanel {
         }
         // draw zombies
         g2.setPaint(zombieColor);
-        for (Zombie zombie : population.getZombie()) {
+        for (Zombie zombie : Zombie.getInstances()) {
             g2.fillOval(zombie.x - 2, zombie.y - 2, 4, 4);
         }
+
+        g2.setPaint(Color.black);
+        g2.drawString(String.format("Number of humans: %s", Human.getInstances().size()), 0, 10);
+        g2.drawString(String.format("Number of zombies: %s", Zombie.getInstances().size()), 0, 20);
     }
 }
