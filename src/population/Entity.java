@@ -70,17 +70,22 @@ public abstract class Entity implements Walker, Living {
      * @param entity
      */
     protected void moveTo(Entity entity) {
-        if (entity.x > x) {
-            x++;
+        int _x = x;
+        int _y = y;
+
+        if (entity.x > _x) {
+            _x++;
         } else {
-            x--;
+            _x--;
         }
 
-        if (entity.y > y) {
-            y++;
+        if (entity.y > _y) {
+            _y++;
         } else {
-            y--;
+            _y--;
         }
+
+        setCoordinates(_x, _y);
     }
 
 }

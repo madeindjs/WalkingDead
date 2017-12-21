@@ -1,5 +1,6 @@
 package population;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.Vector;
 
@@ -20,9 +21,14 @@ public class Human extends Entity implements Fighter {
 
     public int life = 100;
 
-    static final int AGE_MAJORITY = 18;
-    static final int CHANCES_TO_HAVE_CHILD = 5;
-    static final int RAPIDITY = 2;
+    public static final int AGE_MAJORITY = 18;
+    public static final int CHANCES_TO_HAVE_CHILD = 5;
+    public static final int RAPIDITY = 2;
+    /**
+     * Allow uman to find the closest human only from a given perimeter. In this
+     * way we reduce amount of geometry computed.
+     */
+    private static final int VISION = 20;
 
     public static Vector<Human> getInstances() {
         return instances;
@@ -110,7 +116,6 @@ public class Human extends Entity implements Fighter {
      */
     @Override
     public void move() {
-
         Human closestHuman = findClosestHuman();
 
         if (closestHuman == this) {
@@ -124,12 +129,14 @@ public class Human extends Entity implements Fighter {
 
     /**
      * Return the closet human on the map
+     *
+     * @return
      */
     protected Human findClosestHuman() {
         int count = instances.size();
 
         // if alone, return him :'(
-        if (count > 2) {
+        if (count < 2) {
             return this;
         }
 
@@ -137,7 +144,10 @@ public class Human extends Entity implements Fighter {
 
         // compute distances between all humans
         for (int i = 0; i < count; i++) {
-            distances[i] = this.distance(instances.get(i));
+            Human human = instances.get(i);
+            if (this.equals(human) && canISeeHim(human)) {
+                distances[i] = this.distanceFrom(instances.get(i));
+            }
         }
 
         // find lowest index
@@ -156,16 +166,25 @@ public class Human extends Entity implements Fighter {
     /**
      * Distance between A & B are equal to square of (xb -xa)^2 + (ya-yb)^2
      *
+     * @param h
      * @see
      * https://fr.wikipedia.org/wiki/Distance_entre_deux_points_sur_le_plan_cart%C3%A9sien
      * @param human
      * @return distance from human
      */
-    protected double distance(Human h) {
+    protected double distanceFrom(Human h) {
         double xPow = Math.pow((h.x - this.x), 2);
         double yPow = Math.pow((h.y - this.y), 2);
 
         return Math.sqrt((xPow + yPow));
+    }
+
+    protected boolean canISeeHim(Human human) {
+
+        int xDist = Math.abs(x - human.x);
+        int yDist = Math.abs(y - human.y);
+
+        return xDist < VISION && yDist < VISION;
     }
 
     /**
@@ -177,6 +196,31 @@ public class Human extends Entity implements Fighter {
     public void die() {
         instances.remove(this);
         new Zombie(this);
+    }
+
+    /**
+     *
+     * @param object
+     * @return
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Human)) {
+            return false;
+        }
+        Human human = (Human) object;
+
+        return human.x != x && human.y != y && human.age == age;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + this.age;
+        hash = 79 * hash + this.maxAge;
+        hash = 79 * hash + Objects.hashCode(this.sex);
+        hash = 79 * hash + this.life;
+        return hash;
     }
 
 }
