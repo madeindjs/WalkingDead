@@ -1,12 +1,18 @@
 package population;
 
 import java.util.Random;
+import java.util.Vector;
 
 /**
  *
  * @author arousseau
  */
 public class Human extends Point implements Fighter, Walker {
+
+    /**
+     * Represent all humans
+     */
+    private static Vector<Human> instances = new Vector();
 
     private int age;
     private final int maxAge;
@@ -17,6 +23,14 @@ public class Human extends Point implements Fighter, Walker {
     static final int AGE_MAJORITY = 18;
     static final int CHANCES_TO_HAVE_CHILD = 5;
     static final int RAPIDITY = 2;
+
+    public static Vector<Human> getInstances() {
+        return instances;
+    }
+
+    public static Human getInstance(int index) {
+        return instances.get(index);
+    }
 
     /**
      * Create a human with a random sex & random max age
@@ -29,6 +43,8 @@ public class Human extends Point implements Fighter, Walker {
         sex = rand.nextBoolean() ? Sex.Male : Sex.Female;
 
         setRandomPosition();
+
+        instances.add(this);
     }
 
     public Human(int _age) {
@@ -98,6 +114,16 @@ public class Human extends Point implements Fighter, Walker {
 
         setCoordinates(_x, _y);
         addYear();
+    }
+
+    /**
+     * Remove human from instances
+     *
+     * @todo try to free memory
+     */
+    public void die() {
+        instances.remove(this);
+        // @todo create zombie here
     }
 
 }

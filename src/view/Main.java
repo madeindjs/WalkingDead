@@ -25,7 +25,7 @@ public class Main {
         frame.setLand(land);
 
         while (pop.countHumans() > 0) {
-            for (Human human : pop.getHumans()) {
+            for (Human human : Human.getInstances()) {
                 human.move();
             }
             for (Zombie zombie : pop.getZombie()) {

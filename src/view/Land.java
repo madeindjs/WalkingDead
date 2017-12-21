@@ -30,7 +30,7 @@ public class Land extends JPanel {
 
         // draw humans
         g2.setPaint(humanColor);
-        for (Human human : population.getHumans()) {
+        for (Human human : Human.getInstances()) {
             g2.fillOval(human.x - 2, human.y - 2, 4, 4);
         }
         // draw zombies

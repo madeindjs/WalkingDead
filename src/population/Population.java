@@ -5,7 +5,6 @@ import java.util.Vector;
 
 public class Population {
 
-    private Vector<Human> humans = new Vector();
     private Vector<Zombie> zombies = new Vector();
     private int year = 0;
 
@@ -16,20 +15,16 @@ public class Population {
      */
     public Population() {
         for (int i = 0; i < NUMBER_START; i++) {
-            humans.add(new Human(Human.AGE_MAJORITY));
+            new Human(Human.AGE_MAJORITY);
         }
     }
 
     public int countHumans() {
-        return humans.size();
+        return Human.getInstances().size();
     }
 
     public int countZombies() {
         return zombies.size();
-    }
-
-    public Vector<Human> getHumans() {
-        return humans;
     }
 
     public Vector<Zombie> getZombie() {
@@ -51,7 +46,7 @@ public class Population {
         Vector<Human> babies = new Vector();
 
         // 1. add year to each humans
-        for (Human human : humans) {
+        for (Human human : Human.getInstances()) {
             human.addYear();
         }
 
@@ -60,22 +55,21 @@ public class Population {
         // 2. zombies fight again humans
         for (Zombie zombie : zombies) {
             int index = rand.nextInt(count);
-            zombie.fight(humans.get(index));
+            zombie.fight(Human.getInstance(index));
         }
 
         // 3. remove died zombies & humans
         removeDiedPeople();
 
         // each human try to have sex ... if he can
-        for (Human human : humans) {
+        for (Human human : Human.getInstances()) {
             int index = rand.nextInt(count);
             try {
-                Human baby = human.haveSex(humans.get(index));
+                Human baby = human.haveSex(Human.getInstance(index));
                 babies.add(baby);
             } catch (Exception e) {
             }
         }
-        humans.addAll(babies);
 
         year++;
     }
@@ -85,7 +79,7 @@ public class Population {
         return String.format(
                 "[%s] Population: %s humans & %s zombies",
                 year,
-                humans.size(),
+                Human.getInstances().size(),
                 zombies.size()
         );
     }
@@ -95,14 +89,14 @@ public class Population {
 
         zombies.removeIf((z) -> !z.isAlive());
 
-        for (Human human : humans) {
+        for (Human human : Human.getInstances()) {
             if (!human.isAlive()) {
                 humansDied.add(human);
             }
         }
 
         for (Human human : humansDied) {
-            humans.remove(human);
+            human.die();
             zombies.add(new Zombie(human));
         }
 
