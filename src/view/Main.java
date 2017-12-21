@@ -35,7 +35,7 @@ public class Main {
             pop.removeDiedPeople();
             pop.addYear();
 
-            Thread.sleep(100);
+            Thread.sleep(200);
         }
     }
 }

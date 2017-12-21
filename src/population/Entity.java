@@ -50,6 +50,9 @@ public abstract class Entity implements Walker, Living {
         }
     }
 
+    /**
+     * Move completly randomnely on the 2D plan
+     */
     public void move() {
         Random rand = new Random();
         int directionX = rand.nextBoolean() ? 1 : -1;
@@ -59,6 +62,25 @@ public abstract class Entity implements Walker, Living {
         int _y = y + (RAPIDITY * directionY);
 
         setCoordinates(_x, _y);
+    }
+
+    /**
+     * Move in direction of the given entity
+     *
+     * @param entity
+     */
+    protected void moveTo(Entity entity) {
+        if (entity.x > x) {
+            x++;
+        } else {
+            x--;
+        }
+
+        if (entity.y > y) {
+            y++;
+        } else {
+            y--;
+        }
     }
 
 }

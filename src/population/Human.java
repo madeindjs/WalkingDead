@@ -87,7 +87,8 @@ public class Human extends Entity implements Fighter {
 
     @Override
     public boolean isAlive() {
-        return age < maxAge && life > 0;
+        return true;
+        // return age < maxAge && life > 0;
     }
 
     @Override
@@ -104,10 +105,67 @@ public class Human extends Entity implements Fighter {
         }
     }
 
+    /**
+     * Human will try to move next to closest human
+     */
     @Override
     public void move() {
-        super.move();
+
+        Human closestHuman = findClosestHuman();
+
+        if (closestHuman == this) {
+            super.move();
+        } else {
+            moveTo(closestHuman);
+        }
+
         addYear();
+    }
+
+    /**
+     * Return the closet human on the map
+     */
+    protected Human findClosestHuman() {
+        int count = instances.size();
+
+        // if alone, return him :'(
+        if (count > 2) {
+            return this;
+        }
+
+        double[] distances = new double[count];
+
+        // compute distances between all humans
+        for (int i = 0; i < count; i++) {
+            distances[i] = this.distance(instances.get(i));
+        }
+
+        // find lowest index
+        double lowest = 100000;
+        int lowestIndex = 1;
+        for (int i = 0; i < count; i++) {
+            if (distances[i] < lowest) {
+                lowest = distances[i];
+                lowestIndex = i;
+            }
+        }
+
+        return instances.get(lowestIndex);
+    }
+
+    /**
+     * Distance between A & B are equal to square of (xb -xa)^2 + (ya-yb)^2
+     *
+     * @see
+     * https://fr.wikipedia.org/wiki/Distance_entre_deux_points_sur_le_plan_cart%C3%A9sien
+     * @param human
+     * @return distance from human
+     */
+    protected double distance(Human h) {
+        double xPow = Math.pow((h.x - this.x), 2);
+        double yPow = Math.pow((h.y - this.y), 2);
+
+        return Math.sqrt((xPow + yPow));
     }
 
     /**
