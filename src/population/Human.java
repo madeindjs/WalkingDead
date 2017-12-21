@@ -14,9 +14,6 @@ public class Human extends Point implements Fighter, Walker {
 
     public int life = 100;
 
-    private Human mother;
-    private Human father;
-
     static final int AGE_MAJORITY = 18;
     static final int CHANCES_TO_HAVE_CHILD = 5;
     static final int RAPIDITY = 2;
@@ -41,14 +38,6 @@ public class Human extends Point implements Fighter, Walker {
 
     public void setAge(int _age) {
         age = _age;
-    }
-
-    public void setMother(Human _mother) {
-        mother = _mother;
-    }
-
-    public void setFather(Human _father) {
-        father = _father;
     }
 
     public Human haveSex(Human otherHuman) throws Exception {

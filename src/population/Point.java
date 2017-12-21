@@ -13,6 +13,9 @@ public class Point {
     protected static final int xMax = 400;
     protected static final int yMax = 400;
 
+    /**
+     * Set a random position on the map
+     */
     protected void setRandomPosition() {
         Random rand = new Random();
         x = rand.nextInt(xMax);
@@ -27,7 +30,6 @@ public class Point {
         if (_y > 0 && _y < yMax) {
             y = _y;
         }
-
     }
 
 }
