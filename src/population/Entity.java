@@ -40,7 +40,7 @@ public abstract class Entity implements Walker, Living {
      * @param _x
      * @param _y
      */
-    protected void setCoordinates(int _x, int _y) {
+    public void setCoordinates(int _x, int _y) {
         if (_x > 0 && _x < xMax) {
             x = _x;
         }
@@ -48,6 +48,14 @@ public abstract class Entity implements Walker, Living {
         if (_y > 0 && _y < yMax) {
             y = _y;
         }
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     /**
