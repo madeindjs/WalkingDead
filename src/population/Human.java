@@ -200,6 +200,7 @@ public class Human extends Entity implements Fighter {
      */
     @Override
     public void die() {
+        life = 0;
         instances.remove(this);
         new Zombie(this);
     }
