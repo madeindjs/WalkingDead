@@ -8,8 +8,9 @@ public class HumanTest extends TestCase {
      * Assert that human are added to instances on creation
      */
     public void testHuman() {
+        int initialHumanCount = Human.count();
         Human human = new Human();
-        assertEquals(1, Human.getInstances().size());
+        assertEquals(initialHumanCount + 1, Human.count());
         assertTrue(human.equals(Human.getInstances().firstElement()));
     }
 
@@ -17,11 +18,13 @@ public class HumanTest extends TestCase {
      * Assert that human is removed from instances on die & a zombie is born
      */
     public void testDie() {
+        int initialHumanCount = Human.count();
+        int initialZombieCount = Zombie.count();
         Human human = new Human();
-        assertEquals(1, Human.getInstances().size());
+        assertEquals("Human was not created", initialHumanCount + 1, Human.count());
         human.die();
-        assertEquals(0, Human.getInstances().size());
-        assertEquals(1, Zombie.getInstances().size());
+        assertEquals(initialHumanCount, Human.count());
+        assertEquals(initialZombieCount + 1, Zombie.count());
     }
 
     /**
@@ -62,5 +65,10 @@ public class HumanTest extends TestCase {
         h1.moveTo(h2);
         assertEquals(4, h1.x);
         assertEquals(4, h1.y);
+    }
+
+    public void testIsAlive() {
+        Human h = new Human(1000);
+        assertFalse(h.isAlive());
     }
 }

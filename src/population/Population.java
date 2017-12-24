@@ -83,8 +83,8 @@ public class Population {
         return String.format(
                 "[%s] Population: %s humans & %s zombies",
                 year,
-                Human.getInstances().size(),
-                Zombie.getInstances().size()
+                Human.count(),
+                Zombie.count()
         );
     }
 

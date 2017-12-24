@@ -18,6 +18,13 @@ public class Zombie extends Entity implements Fighter, Walker, Living {
         return instances;
     }
 
+    /**
+     * @return count of humans
+     */
+    public static int count() {
+        return instances.size();
+    }
+
     public Zombie(Human human) {
         x = human.x;
         y = human.y;

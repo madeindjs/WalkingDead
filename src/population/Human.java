@@ -34,6 +34,13 @@ public class Human extends Entity implements Fighter {
         return instances;
     }
 
+    /**
+     * @return count of humans
+     */
+    public static int count() {
+        return instances.size();
+    }
+
     public static Human getInstance(int index) {
         return instances.get(index);
     }
@@ -132,7 +139,7 @@ public class Human extends Entity implements Fighter {
      * @return
      */
     protected Human findClosestHuman() {
-        int count = instances.size();
+        int count = count();
 
         // if alone, return him :'(
         if (count < 2) {
