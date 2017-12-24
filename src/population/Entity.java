@@ -50,6 +50,10 @@ public abstract class Entity implements Walker, Living {
         }
     }
 
+    public String getCoordinates() {
+        return String.format("%s*%s", x, y);
+    }
+
     public int getX() {
         return x;
     }

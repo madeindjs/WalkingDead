@@ -138,7 +138,7 @@ public class Human extends Entity implements Fighter {
      *
      * @return
      */
-    protected Human findClosestHuman() {
+    public Human findClosestHuman() {
         int count = count();
 
         // if alone, return him :'(
@@ -151,7 +151,8 @@ public class Human extends Entity implements Fighter {
         // compute distances between all humans
         for (int i = 0; i < count; i++) {
             Human human = instances.get(i);
-            if (this.equals(human) && canISeeHim(human)) {
+            System.out.println(human);
+            if (!this.equals(human) && canISeeHim(human)) {
                 distances[i] = this.distanceFrom(instances.get(i));
             }
         }
@@ -185,8 +186,7 @@ public class Human extends Entity implements Fighter {
         return Math.sqrt((xPow + yPow));
     }
 
-    protected boolean canISeeHim(Human human) {
-
+    public boolean canISeeHim(Human human) {
         int xDist = Math.abs(x - human.x);
         int yDist = Math.abs(y - human.y);
 
@@ -217,7 +217,7 @@ public class Human extends Entity implements Fighter {
         }
         Human human = (Human) object;
 
-        return human.x != x && human.y != y && human.age == age;
+        return human.x == x && human.y == y && human.age == age;
     }
 
     @Override
@@ -228,6 +228,10 @@ public class Human extends Entity implements Fighter {
         hash = 79 * hash + Objects.hashCode(this.sex);
         hash = 79 * hash + this.life;
         return hash;
+    }
+
+    public String toString() {
+        return String.format("Human: %s/%s age @ %s", age, maxAge, getCoordinates());
     }
 
 }

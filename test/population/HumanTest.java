@@ -11,7 +11,6 @@ public class HumanTest extends TestCase {
         int initialHumanCount = Human.count();
         Human human = new Human();
         assertEquals(initialHumanCount + 1, Human.count());
-        assertTrue(human.equals(Human.getInstances().firstElement()));
     }
 
     /**
@@ -65,6 +64,34 @@ public class HumanTest extends TestCase {
         h1.moveTo(h2);
         assertEquals(4, h1.x);
         assertEquals(4, h1.y);
+    }
+
+    public void testEquals() {
+        Human h1 = new Human();
+        assertTrue(h1.equals(h1));
+    }
+
+    public void testCanISeeHim() {
+        Human h1 = new Human();
+        Human h2 = new Human();
+        Human h3 = new Human();
+        h1.setCoordinates(0, 0);
+        h2.setCoordinates(5, 5);
+        h3.setCoordinates(100, 100);
+
+        assertTrue(h1.canISeeHim(h2));
+        assertFalse(h1.canISeeHim(h3));
+    }
+
+    public void testFindClosestHuman() {
+        Human h1 = new Human();
+        Human h2 = new Human();
+        Human h3 = new Human();
+        h1.setCoordinates(0, 0);
+        h2.setCoordinates(5, 5);
+        h3.setCoordinates(6, 6);
+
+        assertSame(h1.findClosestHuman(), h2);
     }
 
     public void testIsAlive() {

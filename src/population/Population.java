@@ -5,7 +5,10 @@ import java.util.Vector;
 public class Population {
 
     private int year = 0;
-    static final int NUMBER_START = 100;
+    /**
+     * Number of human instancied on Population creation
+     */
+    private static final int NUMBER_START = 100;
 
     /**
      * Create a population with 10 humans
