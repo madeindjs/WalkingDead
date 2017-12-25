@@ -41,11 +41,11 @@ public abstract class Entity implements Walker, Living {
      * @param _y
      */
     public void setCoordinates(int _x, int _y) {
-        if (_x > 0 && _x < xMax) {
+        if (_x >= 0 && _x <= xMax) {
             x = _x;
         }
 
-        if (_y > 0 && _y < yMax) {
+        if (_y >= 0 && _y <= yMax) {
             y = _y;
         }
     }

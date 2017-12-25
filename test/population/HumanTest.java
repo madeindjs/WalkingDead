@@ -75,7 +75,7 @@ public class HumanTest extends TestCase {
         Human h1 = new Human();
         Human h2 = new Human();
         Human h3 = new Human();
-        h1.setCoordinates(0, 0);
+        h1.setCoordinates(1, 1);
         h2.setCoordinates(5, 5);
         h3.setCoordinates(100, 100);
 
@@ -91,7 +91,7 @@ public class HumanTest extends TestCase {
         h2.setCoordinates(5, 5);
         h3.setCoordinates(6, 6);
 
-        assertSame(h1.findClosestHuman(), h2);
+        assertSame(h2, h1.findClosestHuman());
     }
 
     public void testIsAlive() {

@@ -151,8 +151,8 @@ public class Human extends Entity implements Fighter {
         // compute distances between all humans
         for (int i = 0; i < count; i++) {
             Human human = instances.get(i);
-            System.out.println(human);
             if (!this.equals(human) && canISeeHim(human)) {
+                System.out.println(human);
                 distances[i] = this.distanceFrom(instances.get(i));
             }
         }
@@ -166,6 +166,8 @@ public class Human extends Entity implements Fighter {
                 lowestIndex = i;
             }
         }
+
+        System.out.println(lowestIndex);
 
         return instances.get(lowestIndex);
     }
