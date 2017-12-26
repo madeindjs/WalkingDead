@@ -125,9 +125,9 @@ public class Human extends Entity implements Fighter {
     @Override
     public void fight(Zombie zombie) {
         if (isMajor() && isAlive()) {
-            zombie.die();
+            zombie.setDied();
         } else {
-            this.die();
+            this.setDied();
         }
     }
 
@@ -157,6 +157,11 @@ public class Human extends Entity implements Fighter {
         } else {
             moveTo(closestHuman);
         }
+    }
+
+    @Override
+    public void setDied() {
+        life = 0;
     }
 
     /**

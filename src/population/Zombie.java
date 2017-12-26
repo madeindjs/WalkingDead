@@ -11,6 +11,10 @@ public class Zombie extends Entity implements Fighter, Walker, Living {
 
     public int strenght = 30;
     public int life = 20;
+    /**
+     * Perimeter who entity can figt against entity
+     */
+    private static final int FIGHT_AREA = 2;
 
     private static Vector<Zombie> instances = new Vector();
 
@@ -40,7 +44,7 @@ public class Zombie extends Entity implements Fighter, Walker, Living {
                 human.fight(this);
             }
         } else {
-            human.die();
+            human.setDied();
         }
     }
 
@@ -56,7 +60,40 @@ public class Zombie extends Entity implements Fighter, Walker, Living {
 
     @Override
     public void die() {
+        life = 0;
         instances.remove(this);
+    }
+
+    /**
+     * Human will try to: move next to closest human if he can, move randomly or
+     * have sex if closest human is in `SEX_PERIMETER`
+     */
+    @Override
+    public void move() {
+        Human closestHuman;
+
+        try {
+            closestHuman = findClosestHuman();
+        } catch (Exception e) {
+            // move randomly if exception are found
+            super.move();
+            return;
+        }
+
+        if (canFight(closestHuman)) {
+            fight(closestHuman);
+        } else {
+            moveTo(closestHuman);
+        }
+    }
+
+    protected boolean canFight(Human human) {
+        return Math.abs(human.x - x) <= FIGHT_AREA && Math.abs(human.y - y) <= FIGHT_AREA;
+    }
+
+    @Override
+    public void setDied() {
+        life = 0;
     }
 
 }

@@ -8,6 +8,11 @@ public interface Living {
     public void die();
 
     /**
+     * Set entity as died
+     */
+    public void setDied();
+
+    /**
      * Check if this entity is alive
      *
      * @return true if alive
