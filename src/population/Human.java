@@ -30,6 +30,10 @@ public class Human extends Entity implements Fighter {
      * Perimeter who human can have sex with another
      */
     private static final int SEX_AREA = 1;
+    /**
+     * Perimeter who human can have sex with another
+     */
+    private static final int AFFRAID_AREA = 5;
 
     public static Vector<Human> getInstances() {
         return instances;
@@ -128,7 +132,7 @@ public class Human extends Entity implements Fighter {
 
     @Override
     public boolean isAlive() {
-        return life > 0.0;// & age < maxAge
+        return life > 0.0 & age < maxAge;
     }
 
     @Override

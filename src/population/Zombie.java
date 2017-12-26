@@ -56,7 +56,7 @@ public class Zombie extends Entity implements Fighter, Walker, Living {
 
     @Override
     public boolean isAlive() {
-        return true;
+        return life > 0.0;
     }
 
     @Override
@@ -99,6 +99,7 @@ public class Zombie extends Entity implements Fighter, Walker, Living {
 
     @Override
     public void setDied() {
+        System.out.println("population.Zombie.setDied()");
         life = 0;
     }
 
