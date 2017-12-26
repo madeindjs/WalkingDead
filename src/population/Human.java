@@ -17,7 +17,7 @@ public class Human extends Entity implements Fighter {
 
     private int age;
     private final int maxAge;
-    private final Sex sex;
+    private Sex sex;
 
     public int life = 100;
 
@@ -29,6 +29,10 @@ public class Human extends Entity implements Fighter {
      * way we reduce amount of geometry computed.
      */
     private static final int VISION = 20;
+    /**
+     * Perimeter who human can have sex with another
+     */
+    private static final int SEX_AREA = 1;
 
     public static Vector<Human> getInstances() {
         return instances;
@@ -50,14 +54,17 @@ public class Human extends Entity implements Fighter {
      */
     public Human() {
         Random rand = new Random();
-
         maxAge = rand.nextInt(120);
         age = 0;
         sex = rand.nextBoolean() ? Sex.Male : Sex.Female;
 
         setRandomPosition();
-
         instances.add(this);
+    }
+
+    public Human(int _age, Sex _sex) {
+        this(_age);
+        this.sex = _sex;
     }
 
     public Human(int _age) {
@@ -98,7 +105,24 @@ public class Human extends Entity implements Fighter {
         return isMajor() && isAlive();
     }
 
+    /**
+     * Check if human can have sex with given human
+     *
+     * @param human
+     * @return
+     */
+    public boolean canHaveSex(Human human) {
+        // check all basics rules
+        if (!canHaveSex() || !human.canHaveSex() || sex == human.sex) {
+            return false;
+        }
+
+        // check area to have sex
+        return Math.abs(human.x - x) <= SEX_AREA && Math.abs(human.y - y) <= SEX_AREA;
+    }
+
     @Override
+
     public boolean isAlive() {
         return age < maxAge && life > 0;
     }

@@ -136,4 +136,20 @@ public class HumanTest extends TestCase {
         Human h = new Human(1000);
         assertFalse(h.isAlive());
     }
+
+    public void testCanIHaveSex() {
+        Human boy = new Human(20, Sex.Male);
+        Human girl = new Human(20, Sex.Female);
+        Human girlFarAaway = new Human(20, Sex.Female);
+        Human minor = new Human(5, Sex.Female);
+
+        boy.setCoordinates(1, 1);
+        girl.setCoordinates(2, 2);
+        girlFarAaway.setCoordinates(20, 20);
+        minor.setCoordinates(1, 1);
+
+        assertTrue(boy.canHaveSex(girl));
+        assertFalse(boy.canHaveSex(minor));
+        assertFalse(boy.canHaveSex(girlFarAaway));
+    }
 }
