@@ -16,7 +16,7 @@ public abstract class Entity implements Walker, Living {
      * Allow uman to find the closest human only from a given perimeter. In this
      * way we reduce amount of geometry computed.
      */
-    protected static final int VISION = 20;
+    protected static final int VISION = 10;
 
     /**
      * Position on X axe

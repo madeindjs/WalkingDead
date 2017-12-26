@@ -4,11 +4,12 @@ import java.util.Vector;
 
 public class Population {
 
-    private int year = 0;
+    private double year = 0;
     /**
      * Number of human instancied on Population creation
      */
     private static final int NUMBER_START = 100;
+    public static final double LOOP_VALUE = 0.5;
 
     /**
      * Create a population with 10 humans
@@ -23,7 +24,7 @@ public class Population {
         return Human.getInstances().size();
     }
 
-    public int getYear() {
+    public double getYear() {
         return year;
     }
 
@@ -36,7 +37,7 @@ public class Population {
      *
      * 4. humans have sex
      */
-    public void addYear() {
+    public void addLoop() {
         // move humans
         for (Human human : Human.getInstances()) {
             human.move();
@@ -79,7 +80,7 @@ public class Population {
             }
         }
          */
-        year++;
+        year += LOOP_VALUE;
     }
 
     @Override

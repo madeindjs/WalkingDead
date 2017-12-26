@@ -24,11 +24,11 @@ public class Main {
 
         while (pop.countHumans() > 0) {
 
-            pop.addYear();
+            pop.addLoop();
             pop.removeDiedPeople();
             frame.land.repaint();
 
-            Thread.sleep(200);
+            Thread.sleep(100);
         }
     }
 }

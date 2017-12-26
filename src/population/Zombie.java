@@ -42,6 +42,8 @@ public class Zombie extends Entity implements Fighter, Walker, Living {
 
             if (human.isAlive()) {
                 human.fight(this);
+            } else {
+                System.out.println("population.Zombie.fight()");
             }
         } else {
             human.setDied();

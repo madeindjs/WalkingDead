@@ -15,11 +15,11 @@ public class Human extends Entity implements Fighter {
      */
     private static Vector<Human> instances = new Vector();
 
-    private int age = 0;
-    private int maxAge;
+    private double age = 0;
+    private double maxAge;
     private Sex sex;
 
-    public int life = 100;
+    public double life = 100;
 
     public static final int AGE_MAJORITY = 18;
     public static final int CHANCES_TO_HAVE_CHILD = 10;
@@ -51,7 +51,7 @@ public class Human extends Entity implements Fighter {
      */
     public Human() {
         Random rand = new Random();
-        maxAge = rand.nextInt(MAX_AGE);
+        maxAge = (double) rand.nextInt(MAX_AGE);
         sex = rand.nextBoolean() ? Sex.Male : Sex.Female;
 
         setRandomPosition();
@@ -68,7 +68,7 @@ public class Human extends Entity implements Fighter {
         age = _age;
         // set max age between current age & max age
         Random rand = new Random();
-        maxAge = rand.nextInt(MAX_AGE - age) + age;
+        maxAge = (double) rand.nextInt(MAX_AGE - (int) age) + age;
     }
 
     public void setAge(int _age) {
@@ -83,12 +83,12 @@ public class Human extends Entity implements Fighter {
         return new Baby(this);
     }
 
-    public void addYear() {
-        age++;
+    public void addLoop() {
+        age += Population.LOOP_VALUE;
     }
 
     public boolean isMajor() {
-        return age > AGE_MAJORITY;
+        return age > (float) AGE_MAJORITY;
     }
 
     public boolean canHaveSex() {
@@ -114,7 +114,7 @@ public class Human extends Entity implements Fighter {
     @Override
 
     public boolean isAlive() {
-        return age < maxAge && life > 0;
+        return age < maxAge && life > 0.0;
     }
 
     @Override
@@ -137,7 +137,7 @@ public class Human extends Entity implements Fighter {
      */
     @Override
     public void move() {
-        addYear();
+        addLoop();
 
         try {
             // try to escape from closest zombie .. if found
@@ -228,10 +228,10 @@ public class Human extends Entity implements Fighter {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + this.age;
-        hash = 79 * hash + this.maxAge;
-        hash = 79 * hash + Objects.hashCode(this.sex);
-        hash = 79 * hash + this.life;
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.age) ^ (Double.doubleToLongBits(this.age) >>> 32));
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.maxAge) ^ (Double.doubleToLongBits(this.maxAge) >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.sex);
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.life) ^ (Double.doubleToLongBits(this.life) >>> 32));
         return hash;
     }
 
