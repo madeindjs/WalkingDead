@@ -1,8 +1,21 @@
 package population;
 
+import java.util.Vector;
 import junit.framework.TestCase;
 
 public class HumanTest extends TestCase {
+
+    /**
+     * Remove all humans before each tests
+     */
+    @Override
+    public void setUp() {
+        Vector<Human> humansDied = new Vector();
+        for (Human human : Human.getInstances()) {
+            humansDied.add(human);
+        }
+        humansDied.forEach((e) -> e.die());
+    }
 
     /**
      * Assert that human are added to instances on creation
@@ -62,8 +75,8 @@ public class HumanTest extends TestCase {
         h2.setCoordinates(10, 10);
 
         h1.moveTo(h2);
-        assertEquals(4, h1.x);
-        assertEquals(4, h1.y);
+        assertEquals(1, h1.x);
+        assertEquals(1, h1.y);
     }
 
     public void testEquals() {
