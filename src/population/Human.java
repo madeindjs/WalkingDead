@@ -15,8 +15,8 @@ public class Human extends Entity implements Fighter {
      */
     private static Vector<Human> instances = new Vector();
 
-    private int age;
-    private final int maxAge;
+    private int age = 0;
+    private int maxAge;
     private Sex sex;
 
     public int life = 100;
@@ -24,6 +24,7 @@ public class Human extends Entity implements Fighter {
     public static final int AGE_MAJORITY = 18;
     public static final int CHANCES_TO_HAVE_CHILD = 10;
     public static final int RAPIDITY = 2;
+    public static final int MAX_AGE = 120;
 
     /**
      * Perimeter who human can have sex with another
@@ -50,8 +51,7 @@ public class Human extends Entity implements Fighter {
      */
     public Human() {
         Random rand = new Random();
-        maxAge = rand.nextInt(120);
-        age = 0;
+        maxAge = rand.nextInt(MAX_AGE);
         sex = rand.nextBoolean() ? Sex.Male : Sex.Female;
 
         setRandomPosition();
@@ -66,6 +66,9 @@ public class Human extends Entity implements Fighter {
     public Human(int _age) {
         this();
         age = _age;
+        // set max age between current age & max age
+        Random rand = new Random();
+        maxAge = rand.nextInt(MAX_AGE - age) + age;
     }
 
     public void setAge(int _age) {
