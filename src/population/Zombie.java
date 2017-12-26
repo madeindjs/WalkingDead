@@ -30,8 +30,12 @@ public class Zombie extends Entity implements Fighter, Walker, Living {
     }
 
     public Zombie(Human human) {
-        x = human.x;
-        y = human.y;
+        this(human.x, human.y);
+    }
+
+    public Zombie(int _x, int _y) {
+        x = _x;
+        y = _y;
         instances.add(this);
     }
 

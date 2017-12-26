@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import population.Human;
 import population.Population;
 import population.Zombie;
 
-public class Land extends JPanel {
+public class Land extends JPanel implements MouseListener {
 
     final int PAD = 20;
 
@@ -20,6 +22,7 @@ public class Land extends JPanel {
 
     public Land(Population _population) {
         population = _population;
+        addMouseListener(this);
     }
 
     protected void paintComponent(Graphics g) {
@@ -43,5 +46,41 @@ public class Land extends JPanel {
         g2.drawString(String.format("Year: %s", population.getYear()), 0, 10);
         g2.drawString(String.format("Number of humans: %s", Human.count()), 0, 20);
         g2.drawString(String.format("Number of zombies: %s", Zombie.count()), 0, 30);
+    }
+
+    /**
+     * Insert a zombie on cursor
+     *
+     * @param me
+     */
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        System.out.println("view.Land.mouseReleased()");
+        int x = me.getX();
+        int y = me.getY();
+
+        new Zombie(x, y);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+        // do nothing
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        // do nothing
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+        // do nothing
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+        // do nothing
+
     }
 }

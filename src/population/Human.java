@@ -58,6 +58,21 @@ public class Human extends Entity implements Fighter {
         instances.add(this);
     }
 
+    /**
+     * Set human on given coordinates
+     *
+     * @param _x
+     * @param _y
+     */
+    public Human(int _x, int _y) {
+        Random rand = new Random();
+        maxAge = (double) rand.nextInt(MAX_AGE);
+        sex = rand.nextBoolean() ? Sex.Male : Sex.Female;
+
+        setCoordinates(_x, _y);
+        instances.add(this);
+    }
+
     public Human(int _age, Sex _sex) {
         this(_age);
         this.sex = _sex;
@@ -112,9 +127,8 @@ public class Human extends Entity implements Fighter {
     }
 
     @Override
-
     public boolean isAlive() {
-        return age < maxAge && life > 0.0;
+        return life > 0.0;// & age < maxAge
     }
 
     @Override
