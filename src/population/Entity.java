@@ -69,18 +69,11 @@ public abstract class Entity implements Walker, Living {
     }
 
     /**
-     * Move completly randomnely on the 2D plan
+     * Move in direction of the center of the plan
      */
     @Override
     public void move() {
-        Random rand = new Random();
-        int directionX = rand.nextBoolean() ? 1 : -1;
-        int directionY = rand.nextBoolean() ? 1 : -1;
-
-        int _x = x + (RAPIDITY * directionX);
-        int _y = y + (RAPIDITY * directionY);
-
-        setCoordinates(_x, _y);
+        moveTo(xMax / 2, yMax / 2);
     }
 
     /**
@@ -89,22 +82,33 @@ public abstract class Entity implements Walker, Living {
      * @param entity
      */
     protected void moveTo(Entity entity) {
+        moveTo(entity.x, entity.y);
+    }
+
+    /**
+     * Move in direction of given coordinates
+     *
+     * @param x
+     * @param y
+     */
+    protected void moveTo(int targetX, int targetY) {
         int _x = x;
         int _y = y;
 
-        if (entity.x > _x) {
+        if (targetX > _x) {
             _x += RAPIDITY;
-        } else if (entity.x != _x) {
+        } else if (targetX != _x) {
             _x -= RAPIDITY;
         }
 
-        if (entity.y > _y) {
+        if (targetY > _y) {
             _y += RAPIDITY;
-        } else if (entity.y != _y) {
+        } else if (targetY != _y) {
             _y -= RAPIDITY;
         }
 
         setCoordinates(_x, _y);
+
     }
 
     /**
