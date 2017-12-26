@@ -15,6 +15,12 @@ public class HumanTest extends TestCase {
             humansDied.add(human);
         }
         humansDied.forEach((e) -> e.die());
+
+        Vector<Zombie> zombieDied = new Vector();
+        for (Zombie zombie : Zombie.getInstances()) {
+            zombieDied.add(zombie);
+        }
+        zombieDied.forEach((e) -> e.die());
     }
 
     /**
@@ -107,6 +113,19 @@ public class HumanTest extends TestCase {
         assertSame(h2, h1.findClosestHuman());
     }
 
+    public void testFindClosestZombie() throws Exception {
+        Human h1 = new Human();
+        Human h2 = new Human();
+        Human h3 = new Human();
+        h1.setCoordinates(0, 0);
+        h2.setCoordinates(5, 5);
+        h3.setCoordinates(6, 6);
+        Zombie z2 = new Zombie(h2);
+        Zombie z3 = new Zombie(h3);
+
+        assertSame(z2, h1.findClosestZombie());
+    }
+
     /**
      * @covers FindClosestHuman
      */
@@ -121,7 +140,8 @@ public class HumanTest extends TestCase {
     }
 
     public void testIsAlive() {
-        Human h = new Human(1000);
+        Human h = new Human();
+        h.setAge(1000);
         assertFalse(h.isAlive());
     }
 

@@ -138,8 +138,18 @@ public class Human extends Entity implements Fighter {
     @Override
     public void move() {
         addYear();
-        Human closestHuman;
 
+        try {
+            // try to escape from closest zombie .. if found
+            Zombie closestZombie = findClosestZombie();
+            escape(closestZombie);
+            return;
+        } catch (Exception e) {
+            // no zombie found :)
+        }
+
+        // try to find the closest human
+        Human closestHuman;
         try {
             closestHuman = findClosestHuman();
         } catch (Exception e) {
@@ -149,14 +159,38 @@ public class Human extends Entity implements Fighter {
         }
 
         if (canHaveSex(closestHuman)) {
+            // if human can have sex with closest human, he have sex
             try {
                 haveSex(closestHuman);
             } catch (Exception e) {
                 moveTo(closestHuman);
             }
         } else {
+            // if he can't have sex, he move to the closest human
             moveTo(closestHuman);
         }
+    }
+
+    /**
+     * Escape from given zombie.
+     */
+    public void escape(Zombie zombie) {
+        int _x = x;
+        int _y = y;
+
+        if (zombie.x > _x) {
+            _x -= RAPIDITY;
+        } else if (zombie.x != _x) {
+            _x += RAPIDITY;
+        }
+
+        if (zombie.y > _y) {
+            _y -= RAPIDITY;
+        } else if (zombie.y != _y) {
+            _y += RAPIDITY;
+        }
+
+        setCoordinates(_x, _y);
     }
 
     @Override
@@ -201,8 +235,8 @@ public class Human extends Entity implements Fighter {
         return hash;
     }
 
+    @Override
     public String toString() {
         return String.format("Human: %s/%s age @ %s", age, maxAge, getCoordinates());
     }
-
 }

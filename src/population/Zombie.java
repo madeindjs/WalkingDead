@@ -96,4 +96,27 @@ public class Zombie extends Entity implements Fighter, Walker, Living {
         life = 0;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Zombie)) {
+            return false;
+        }
+        Zombie zombie = (Zombie) object;
+
+        return zombie.x == x && zombie.y == y;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + this.strenght;
+        hash = 29 * hash + this.life;
+        return hash;
+    }
+
 }

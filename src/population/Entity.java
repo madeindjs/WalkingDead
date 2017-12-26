@@ -110,6 +110,7 @@ public abstract class Entity implements Walker, Living {
     /**
      * Return the closet human on the map
      *
+     * @todo refactor with `findClosesZombie`
      * @return
      */
     public Human findClosestHuman() throws Exception {
@@ -127,7 +128,7 @@ public abstract class Entity implements Walker, Living {
         for (int i = 0; i < count; i++) {
             Human human = humans.get(i);
             if (!this.equals(human) && canISeeHim(human)) {
-                distances[i] = this.distanceFrom(humans.get(i));
+                distances[i] = this.distanceFrom(human);
             } else {
                 distances[i] = 100000;
             }
@@ -147,6 +148,46 @@ public abstract class Entity implements Walker, Living {
     }
 
     /**
+     * Return the closet human on the map
+     *
+     * @todo refactor with `findClosestHuman`
+     * @return
+     */
+    public Zombie findClosestZombie() throws Exception {
+        int count = Zombie.count();
+
+        if (count < 2) {
+            throw new Exception("There are not enought human");
+        }
+
+        Vector<Zombie> zombies = Zombie.getInstances();
+
+        double[] distances = new double[count];
+
+        // compute distances between all humans
+        for (int i = 0; i < count; i++) {
+            Zombie zombie = zombies.get(i);
+            if (!this.equals(zombie) && canISeeHim(zombie)) {
+                distances[i] = this.distanceFrom(zombie);
+            } else {
+                distances[i] = 100000;
+            }
+        }
+
+        // find lowest index
+        double lowest = 100000;
+        int lowestIndex = 1;
+        for (int i = 0; i < count; i++) {
+            if (distances[i] < lowest) {
+                lowest = distances[i];
+                lowestIndex = i;
+            }
+        }
+
+        return zombies.get(lowestIndex);
+    }
+
+    /**
      * Distance between A & B are equal to square of (xb -xa)^2 + (ya-yb)^2
      *
      * @param h
@@ -162,11 +203,16 @@ public abstract class Entity implements Walker, Living {
         return Math.sqrt((xPow + yPow));
     }
 
-    public boolean canISeeHim(Human human) {
-        int xDist = Math.abs(x - human.x);
-        int yDist = Math.abs(y - human.y);
+    public boolean canISeeHim(Entity entity) {
+        int xDist = Math.abs(x - entity.x);
+        int yDist = Math.abs(y - entity.y);
 
         return xDist < VISION && yDist < VISION;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s: @ %s", this.getClass().toString(), getCoordinates());
     }
 
 }
