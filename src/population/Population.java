@@ -41,6 +41,8 @@ public class Population {
         for (Human human : Human.getInstances()) {
             human.move();
         }
+
+        Baby.births();
         /*
         // move zombies
         for (Zombie zombie : Zombie.getInstances()) {

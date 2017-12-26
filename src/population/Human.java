@@ -22,7 +22,7 @@ public class Human extends Entity implements Fighter {
     public int life = 100;
 
     public static final int AGE_MAJORITY = 18;
-    public static final int CHANCES_TO_HAVE_CHILD = 5;
+    public static final int CHANCES_TO_HAVE_CHILD = 10;
     public static final int RAPIDITY = 2;
     /**
      * Allow uman to find the closest human only from a given perimeter. In this
@@ -76,21 +76,12 @@ public class Human extends Entity implements Fighter {
         age = _age;
     }
 
-    public Human haveSex(Human otherHuman) throws Exception {
-        if (sex == otherHuman.sex) {
-            throw new Exception("Can't have sex with same sex");
+    public Baby haveSex(Human otherHuman) throws Exception {
+        if (!canHaveSex(otherHuman)) {
+            throw new Exception("Can't have sex");
         }
 
-        if (!canHaveSex() || !otherHuman.canHaveSex()) {
-            throw new Exception("Father & mother have to be major or to be alive");
-        }
-
-        Random rand = new Random();
-        if (rand.nextInt(CHANCES_TO_HAVE_CHILD) == 1) {
-            return new Human();
-        }
-
-        throw new Exception("Do it again...");
+        return new Baby(this);
     }
 
     public void addYear() {
@@ -142,7 +133,8 @@ public class Human extends Entity implements Fighter {
     }
 
     /**
-     * Human will try to move next to closest human
+     * Human will try to: move next to closest human if he can, move randomly or
+     * have sex if closest human is in `SEX_PERIMETER`
      */
     @Override
     public void move() {
@@ -151,7 +143,15 @@ public class Human extends Entity implements Fighter {
         if (closestHuman == this) {
             super.move();
         } else {
-            moveTo(closestHuman);
+            if (canHaveSex(closestHuman)) {
+                try {
+                    haveSex(closestHuman);
+                } catch (Exception e) {
+
+                }
+            } else {
+                moveTo(closestHuman);
+            }
         }
 
         addYear();
