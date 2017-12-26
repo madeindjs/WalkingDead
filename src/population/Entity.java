@@ -88,13 +88,13 @@ public abstract class Entity implements Walker, Living {
 
         if (entity.x > _x) {
             _x++;
-        } else {
+        } else if (entity.x != _x) {
             _x--;
         }
 
         if (entity.y > _y) {
             _y++;
-        } else {
+        } else if (entity.y != _y) {
             _y--;
         }
 
