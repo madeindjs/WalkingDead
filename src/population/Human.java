@@ -134,23 +134,26 @@ public class Human extends Entity implements Fighter {
      */
     @Override
     public void move() {
-        Human closestHuman = findClosestHuman();
+        addYear();
+        Human closestHuman;
 
-        if (closestHuman == this) {
+        try {
+            closestHuman = findClosestHuman();
+        } catch (Exception e) {
+            // move randomly if exception are found
             super.move();
-        } else {
-            if (canHaveSex(closestHuman)) {
-                try {
-                    haveSex(closestHuman);
-                } catch (Exception e) {
-
-                }
-            } else {
-                moveTo(closestHuman);
-            }
+            return;
         }
 
-        addYear();
+        if (canHaveSex(closestHuman)) {
+            try {
+                haveSex(closestHuman);
+            } catch (Exception e) {
+                moveTo(closestHuman);
+            }
+        } else {
+            moveTo(closestHuman);
+        }
     }
 
     /**
