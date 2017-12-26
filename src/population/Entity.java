@@ -87,15 +87,15 @@ public abstract class Entity implements Walker, Living {
         int _y = y;
 
         if (entity.x > _x) {
-            _x++;
+            _x += RAPIDITY;
         } else if (entity.x != _x) {
-            _x--;
+            _x -= RAPIDITY;
         }
 
         if (entity.y > _y) {
-            _y++;
+            _y += RAPIDITY;
         } else if (entity.y != _y) {
-            _y--;
+            _y -= RAPIDITY;
         }
 
         setCoordinates(_x, _y);
