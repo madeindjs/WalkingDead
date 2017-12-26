@@ -79,23 +79,6 @@ public class HumanTest extends TestCase {
         assertEquals(1, h1.y);
     }
 
-    /**
-     * @covers moveTo
-     */
-    public void testMoveToIfAlone() {
-        Human h1 = new Human();
-        Human closest = h1.findClosestHuman();
-        assertSame(h1, closest);
-
-        int initX = h1.getX();
-        int initY = h1.getY();
-
-        h1.moveTo(closest);
-
-        assertEquals(initX, h1.x);
-        assertEquals(initY, h1.y);
-    }
-
     public void testEquals() {
         Human h1 = new Human();
         assertTrue(h1.equals(h1));
@@ -113,7 +96,7 @@ public class HumanTest extends TestCase {
         assertFalse(h1.canISeeHim(h3));
     }
 
-    public void testFindClosestHuman() {
+    public void testFindClosestHuman() throws Exception {
         Human h1 = new Human();
         Human h2 = new Human();
         Human h3 = new Human();
@@ -129,7 +112,12 @@ public class HumanTest extends TestCase {
      */
     public void testFindClosestHumanIfAlone() {
         Human h1 = new Human();
-        assertSame(h1, h1.findClosestHuman());
+        try {
+            h1.findClosestHuman();
+            assertTrue(false);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
     }
 
     public void testIsAlive() {

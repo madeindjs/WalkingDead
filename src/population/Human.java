@@ -24,11 +24,7 @@ public class Human extends Entity implements Fighter {
     public static final int AGE_MAJORITY = 18;
     public static final int CHANCES_TO_HAVE_CHILD = 10;
     public static final int RAPIDITY = 2;
-    /**
-     * Allow uman to find the closest human only from a given perimeter. In this
-     * way we reduce amount of geometry computed.
-     */
-    private static final int VISION = 20;
+
     /**
      * Perimeter who human can have sex with another
      */
@@ -155,67 +151,6 @@ public class Human extends Entity implements Fighter {
         }
 
         addYear();
-    }
-
-    /**
-     * Return the closet human on the map
-     *
-     * @return
-     */
-    public Human findClosestHuman() {
-        int count = count();
-
-        // if alone, return him :'(
-        if (count < 2) {
-            return this;
-        }
-
-        double[] distances = new double[count];
-
-        // compute distances between all humans
-        for (int i = 0; i < count; i++) {
-            Human human = instances.get(i);
-            if (!this.equals(human) && canISeeHim(human)) {
-                distances[i] = this.distanceFrom(instances.get(i));
-            } else {
-                distances[i] = 100000;
-            }
-        }
-
-        // find lowest index
-        double lowest = 100000;
-        int lowestIndex = 1;
-        for (int i = 0; i < count; i++) {
-            if (distances[i] < lowest) {
-                lowest = distances[i];
-                lowestIndex = i;
-            }
-        }
-
-        return instances.get(lowestIndex);
-    }
-
-    /**
-     * Distance between A & B are equal to square of (xb -xa)^2 + (ya-yb)^2
-     *
-     * @param h
-     * @see
-     * https://fr.wikipedia.org/wiki/Distance_entre_deux_points_sur_le_plan_cart%C3%A9sien
-     * @param human
-     * @return distance from human
-     */
-    protected double distanceFrom(Human h) {
-        double xPow = Math.pow((h.x - this.x), 2);
-        double yPow = Math.pow((h.y - this.y), 2);
-
-        return Math.sqrt((xPow + yPow));
-    }
-
-    public boolean canISeeHim(Human human) {
-        int xDist = Math.abs(x - human.x);
-        int yDist = Math.abs(y - human.y);
-
-        return xDist < VISION && yDist < VISION;
     }
 
     /**
