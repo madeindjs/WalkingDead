@@ -9,7 +9,7 @@ public class Population {
      * Number of human instancied on Population creation
      */
     private static final int NUMBER_START = 100;
-    public static final double LOOP_VALUE = 0.5;
+    public static final double LOOP_VALUE = 0.1;
 
     /**
      * Create a population with 10 humans
